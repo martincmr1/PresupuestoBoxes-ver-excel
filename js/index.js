@@ -756,7 +756,7 @@ const PREMIUM = 3500
    document.getElementById("resultados").style.display ="none";
    document.getElementById("inputBuscar").style.display = "none"; 
    document.getElementById("inputBuscar1").style.display = "none"; 
-   
+   document.getElementById("excel").style.display = "none";
    document.getElementById("inputBuscar3").style.display = "none"; 
    document.getElementById("inputBuscar4").style.display = "none"; 
    document.getElementById("inputBuscar5").style.display = "none"; 
