@@ -27,7 +27,20 @@ document.getElementById("eliminarLocalStorageButton").addEventListener("click", 
 
 
 
+let PREMIUM = 0;
 
+function pricePremium() {
+  const codigo = "12167";
+  const premium = productos.find(p => p.codigo === codigo);
+
+  if (premium) {
+    PREMIUM = Number(premium.precio); // Convierte el precio a número
+  } else {
+    // Puedes manejar el caso en el que no se encuentra el producto
+    // Por ejemplo, establecer PREMIUM en un valor por defecto.
+    PREMIUM = 0; // O cualquier otro valor numérico por defecto
+  }
+}
 
 
 
@@ -142,7 +155,22 @@ async function cargarProductosDesdeExcel() {
 
 
 
-const PREMIUM = 3500
+pricePremium()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
  
  //////////////////////ESTA FUNCION REFRESCA LA PAGINA////////////////////////////////////////////////////
