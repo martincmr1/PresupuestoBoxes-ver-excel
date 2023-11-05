@@ -277,7 +277,15 @@
     padding-left: 20px;
   }
 
-
+  button {
+    transition: transform 0.1s;
+  }
+  
+  button:active {
+    transform: scale(0.95); /* Reduce el tamaño al hacer clic */
+  }
+  
+  
 
   @media print {
     body {
