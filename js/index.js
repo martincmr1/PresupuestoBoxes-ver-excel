@@ -770,6 +770,9 @@ function checkInput(inputId, filaId) {
 function sumatodo() {
   agregarFechayhora();
 
+
+
+
   checkInput("inputBuscar", "fila1");
   checkInput("inputBuscar1", "fila2");
 
@@ -868,6 +871,25 @@ function ocultarBotones() {
   document.getElementById("servicioPremium").style.display = "block";
 }
 function ocultarInputs() {
+
+
+  const inputPatente = document.getElementById('inputPatente');
+
+  if (inputPatente) {
+    if (inputPatente.value !== "") {
+      inputPatente.style.border = "none"; // Ocultar el borde si el campo tiene contenido
+    }
+    else{
+      inputPatente.style.display="none"
+    }
+  }
+  
+
+
+
+
+
+
   document.getElementById("boton8").style.display = "none";
   document.getElementById("buscarInput").style.display = "none";
   document.getElementById("resultados").style.display = "none";

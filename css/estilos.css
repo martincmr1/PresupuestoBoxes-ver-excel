@@ -6,11 +6,14 @@
  
  
  
- #floatingInputGrid {
+ /*#floatingInputGrid {
   width: 250px;
   height: 15px;
-  display: inline;               
- }
+  display: inline;       
+  
+  
+  
+ }*/
  .icono_elaion {
   display: none;
   height: 30px;
@@ -228,7 +231,10 @@
 
 
 
-
+#floatingInputGrid{
+height: 40px;
+width: 100px;
+}
 
 
 
