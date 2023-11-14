@@ -1245,7 +1245,7 @@ document.getElementById("autos").addEventListener("change", function () {
   }
   if (valor_select == "suran16v") {
     campo1.value = "172795";
-    campo1.value = "172796";
+    campo2.value = "172796";
     campo5.value = "15502";
     campo6.value = "15979";
     campo7.value = "18739";
