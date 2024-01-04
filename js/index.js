@@ -1,5 +1,34 @@
 /////////////////////////////ARRAY DE PRODUCTOS SERVER///////////////////////////////////////////////////////////////////////////////
 /////////// Esta Funcion Solicita el array de PRODUCTOS de la api que cree en Google Firebase///////////////////////////////////////
+function guardarInteres() {
+  const feeInputElement = document.getElementById('fee');
+  const feeInterest = parseFloat(feeInputElement.value);
+
+  if (!isNaN(feeInterest)) {
+    localStorage.setItem('interes', feeInterest);
+    mostrarToastConfig("interés guardado correctamente", 1000, "https://github.com/apvarun/toastify-js","center");
+    setTimeout(() => {
+      refrescarPagina();
+    }, 1000); // Ejecutar refrescarPagina después de 1000 milisegundos (1 segundo)
+  } else {
+    mostrarToastConfig("Debe ingresar un valor", 1000, "https://github.com/apvarun/toastify-js","center");
+  }
+}
+
+
+
+function eliminarInteres() {
+  localStorage.removeItem('interes');
+  mostrarToastConfig("valor de interés eliminado", 1000, "https://github.com/apvarun/toastify-js","center")
+  setTimeout(() => {
+    refrescarPagina();
+  }, 1000); // Ejecutar refrescarPagina después de 1000 milisegundos (1 segundo)
+}
+
+
+const feeInterest = parseFloat(localStorage.getItem('interes'));
+
+
 
 // Escucha el evento de clic en el botón "Eliminar Local Storage"
 document
@@ -154,6 +183,7 @@ async function cargarProductosDesdeExcel() {
 })();
 
 pricePremium();
+
 
 //////////////////////ESTA FUNCION REFRESCA LA PAGINA////////////////////////////////////////////////////
 
@@ -684,14 +714,29 @@ function sumarPrecios1() {
   for (let i = 0; i < precios.length; i++) {
     precioTotal2 += precios[i];
   }
-  //document.getElementById('sumaCompleto').innerHTML = '$' + precioTotal2.toFixed(0) + '<br>' + ' <small>3 cuotas sin interés de  $' + (precioTotal2/3).toFixed(0) + '</small>';
-  document.getElementById("sumaCompleto").innerHTML =
-    "$" +
-    precioTotal2.toFixed(0) +
-    "<br>" +
-    ' <small><span style="font-weight: normal;"><b>3</b> cuotas sin interés de</span> $' +
-    (precioTotal2 / 3).toFixed(0) +
-    "</small>";
+ // precioTotal2 += PREMIUM;
+
+  let cuotasHTML1 = "";
+
+  if (isNaN(feeInterest)) {
+    cuotasHTML1 =
+      "$" +
+      precioTotal2.toFixed(0) +
+      "<br>" +
+      ' <small><span style="font-weight: normal;"><b>3</b> cuotas sin interes de</span> $' +
+      (precioTotal2 / 3).toFixed(0) +
+      "</small>";
+  } else {
+    cuotasHTML1 =
+      "$" +
+      precioTotal2.toFixed(0) +
+      "<br>" +
+      ' <small><span style="font-weight: normal;"><b>3</b> cuotas de</span> $' +
+      ((precioTotal2 * (1 + feeInterest / 100)) / 3).toFixed(0) +
+      "</small>";
+  }
+  
+  document.getElementById("sumaCompleto").innerHTML = cuotasHTML1;
 
   //document.getElementById('sumaCompleto').innerHTML = '$' + precioTotal2 + '<br>' + ' $' + (precioTotal2/3).toFixed(0)
 
@@ -740,13 +785,27 @@ function sumarPrecios2() {
   }
   precioTotal += PREMIUM;
 
-  document.getElementById("sumaPremium").innerHTML =
-    "$" +
-    precioTotal.toFixed(0) +
-    "<br>" +
-    ' <small><span style="font-weight: normal;"><b>3</b> cuotas sin interés de</span> $' +
-    (precioTotal / 3).toFixed(0) +
-    "</small>";
+  let cuotasHTML = "";
+
+  if (isNaN(feeInterest)) {
+    cuotasHTML =
+      "$" +
+      precioTotal.toFixed(0) +
+      "<br>" +
+      ' <small><span style="font-weight: normal;"><b>3</b> cuotas sin interes de</span> $' +
+      (precioTotal / 3).toFixed(0) +
+      "</small>";
+  } else {
+    cuotasHTML =
+      "$" +
+      precioTotal.toFixed(0) +
+      "<br>" +
+      ' <small><span style="font-weight: normal;"><b>3</b> cuotas de</span> $' +
+      ((precioTotal * (1 + feeInterest / 100)) / 3).toFixed(0) +
+      "</small>";
+  }
+  
+  document.getElementById("sumaPremium").innerHTML = cuotasHTML;
 
   // document.getElementById('sumaPremium').innerHTML = '$' + precioTotal;
   mostrarToasttotal();
@@ -848,7 +907,7 @@ document.getElementById("boton1").style.display = "none";
 /////////////////LA PAGINA SE REFRESCA LUEGO DE 1.5 MINUTOS PARA GENERAR UN NUEVO PRESUPUESTO////////////////////////////////
 function ocultarBotones() {
   document.getElementById("boton0").style.display = "none";
-
+  document.getElementById("interest").style.display = "none";
   document.getElementById("boton01").style.display = "none";
   document.getElementById("boton02").style.display = "none";
   document.getElementById("boton03").style.display = "none";
@@ -1288,6 +1347,46 @@ document.getElementById("autos").addEventListener("change", function () {
     campo6.value = "4011558080624";
     campo7.value = "18711";
   }
+
+  if (valor_select == "megane320") {
+    campo1.value = "172995";
+    campo2.value = "172996";
+    campo5.value = "18578";
+    campo6.value = "15362";
+    campo7.value = "15141";
+  }
+  if (valor_select == "corollacross") {
+    campo1.value = "172895";
+    campo2.value = "172896";
+    campo5.value = "18581";
+    campo6.value = "4011558043292";
+
+   
+  }
+  if (valor_select == "toro13") {
+    campo1.value = "170995";
+    campo2.value = "170996";
+    campo5.value = "4011558758004";
+    campo6.value = "4011558612214";
+    campo7.value = "18726";
+  }
+
+
+  if (valor_select == "pulse13") {
+    campo1.value = "170995";
+    campo5.value = "4011558758004";
+    campo6.value = "4011558080624";
+   
+  }
+
+  if (valor_select == "pulse10") {
+    campo1.value = "170995";
+    campo5.value = "4011558758004";
+    
+   
+  }
+
+
   if (valor_select == "focus2/31.6") {
     campo1.value = "171895";
     campo5.value = "15400";
@@ -1928,7 +2027,28 @@ document.getElementById("autos").addEventListener("change", function () {
   if (valor_select == "208iivti") {
     campo1.value = "172995";
     campo5.value = "15067";
+    campo6.value="4011558831158"
+    campo7.value="15141"
   }
+  if (valor_select == "captiva24n") {
+    campo1.value = "171795";
+    campo2.value = "171796";
+    campo5.value = "14993";
+    campo6.value="15405"
+    
+  }
+
+  if (valor_select == "montana18") {
+    campo1.value = "171795";
+    
+    campo5.value = "4011558744502";
+    campo6.value="16256"
+    campo7.value="18712"
+  }
+
+
+
+
   if (valor_select == "20719d") {
     campo1.value = "176395";
     campo2.value = "176396";
@@ -1954,6 +2074,11 @@ document.getElementById("autos").addEventListener("change", function () {
     campo6.value = "18311";
     campo7.value = "18819";
   }
+
+
+
+
+  
   if (valor_select == "ranger25") {
     campo1.value = "171895";
     campo2.value = "171896";
@@ -2059,10 +2184,28 @@ document.getElementById("autos").addEventListener("change", function () {
   if (valor_select == "208ii12") {
     campo1.value = "172995";
    
-    campo5.value = "4011558076658";
+    campo5.value = "4011558084172";
     campo6.value = "4011558038885";
     campo7.value = "15141";
   }
+
+
+  if (valor_select == "cobalt18n") {
+    campo1.value = "171795";
+   
+    campo5.value = "4011558744502";
+    campo6.value = "15550";
+    
+  }
+
+  if (valor_select == "cobaltd") {
+    campo1.value = "173895";
+   
+    campo5.value = "15470";
+    campo6.value = "15550";
+    campo7.value = "4011558080860"
+  }
+
 
 
 
