@@ -1696,7 +1696,25 @@ document.getElementById("autos").addEventListener("change", function () {
     campo5.value = "15353";
     campo6.value = "15350";
     campo7.value = "18711";
+    rangereco20
   }
+
+
+  if (valor_select == "rangereco20") {
+    campo1.value = "171895";
+    campo2.value = "171896";
+
+    campo5.value = "15404";
+    
+
+    UpdateQuantity("2", "cantidad1");
+  }
+
+
+
+
+
+
   if (valor_select == "punto14") {
     campo1.value = "171895";
     campo5.value = "18572";
