@@ -726,7 +726,7 @@ function sumarPrecios1() {
       "$" +
       precioTotal2.toFixed(0) +
       "<br>" +
-      ' <small><span style="font-weight: normal;"><b>3</b> cuotas sin interes de</span> $' +
+      ' <small><span style="font-weight: normal;"><b>3</b> cuotas sin interés de</span> $' +
       (precioTotal2 / 3).toFixed(0) +
       "</small>";
   } else {
@@ -795,7 +795,7 @@ function sumarPrecios2() {
       "$" +
       precioTotal.toFixed(0) +
       "<br>" +
-      ' <small><span style="font-weight: normal;"><b>3</b> cuotas sin interes de</span> $' +
+      ' <small><span style="font-weight: normal;"><b>3</b> cuotas sin interés de</span> $' +
       (precioTotal / 3).toFixed(0) +
       "</small>";
   } else {
@@ -1366,6 +1366,26 @@ document.getElementById("autos").addEventListener("change", function () {
 
    
   }
+
+  if (valor_select == "ecosporttdci") {
+    campo1.value = "171895";
+    campo5.value = "18484";
+    campo6.value = "4011558340506";
+    campo7.value = "16297";
+
+   
+  }
+
+  if (valor_select == "kangoo2dci") {
+    campo1.value = "172995";
+    campo2.value = "172996";
+    campo5.value = "4011558043179";
+    campo6.value = "16252";
+    campo7.value = "4011558070250";
+  }
+
+
+
   if (valor_select == "corolla20") {
     campo1.value = "172895";
     campo2.value = "172896";
