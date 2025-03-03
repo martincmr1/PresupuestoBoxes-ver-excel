@@ -28,6 +28,9 @@
     <title>PRESUPUESTO YPF BOXES</title>
 </head>
 <body>
+
+  <div id="contenido">
+
     <header>    
       
       
@@ -687,7 +690,29 @@
 
 
 
+    <button id="exportarPDF">Exportar a PDF</button>
 
+   
+       
+    </div>
+
+    <script>
+        document.getElementById("exportarPDF").addEventListener("click", () => {
+            const { jsPDF } = window.jspdf;
+
+            html2canvas(document.getElementById("contenido"), { scale: 2 }).then((canvas) => {
+                const imgData = canvas.toDataURL("image/png");
+                const pdf = new jsPDF("p", "mm", "a4");
+
+                // Ajustar tamaño de la imagen
+                const imgWidth = 210;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+                pdf.save("pagina-web.pdf"); // Nombre del archivo
+            });
+        });
+    </script>
 
     
     
@@ -737,7 +762,9 @@
 
 
 
-
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+      
 
 </body>
 </html>
