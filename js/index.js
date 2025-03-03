@@ -669,19 +669,40 @@ input5.addEventListener("change", () => {
     valorSeleccionado6
   );
 });
-
+let inputManual = "";
 
 document.getElementById("exportarPDF").addEventListener("click", () => {
   document.getElementById("exportarPDF").style.display = "none";
 
+  let autosSelect = document.getElementById("autos");
+  let inputPatente = document.getElementById("inputPatente"); // Captura el input manual
+
+  let modeloSeleccionado = autosSelect.value ? autosSelect.options[autosSelect.selectedIndex].text : "";
+  let patente = inputPatente.value.trim() !== "" ? inputPatente.value.trim() : "";
+
+  // Obtener la fecha actual en formato DDMMYYYY
+  let fecha = new Date();
+  let dia = fecha.getDate().toString().padStart(2, "0");  // Agrega un 0 si es menor a 10
+  let mes = (fecha.getMonth() + 1).toString().padStart(2, "0");  // Mes comienza desde 0, sumamos 1
+  let anio = fecha.getFullYear();
+  let fechaActual = `${dia}${mes}${anio}`;  // Formato: 03032025
+
+  // Concatenar valores con la fecha
+  let nombreArchivo = `Presupuesto-YPF-BOXES-ACA-MORON-${fechaActual}`;
+  if (modeloSeleccionado && patente) {
+      nombreArchivo += `-${modeloSeleccionado} ${patente}`;
+  } else if (modeloSeleccionado) {
+      nombreArchivo += `-${modeloSeleccionado}`;
+  } else if (patente) {
+      nombreArchivo += `-${patente}`;
+  } else {
+      nombreArchivo += "-Modelo-No-Especificado";
+  }
+
   agregarFechayhora();
-
-
-
 
   checkInput("inputBuscar", "fila1");
   checkInput("inputBuscar1", "fila2");
-
   checkInput("inputBuscar3", "fila4");
   checkInput("inputBuscar4", "fila5");
   checkInput("inputBuscar5", "fila6");
@@ -689,14 +710,12 @@ document.getElementById("exportarPDF").addEventListener("click", () => {
 
   document.getElementById("boton0").click();
   document.getElementById("boton1").click();
-
   document.getElementById("boton3").click();
   document.getElementById("boton4").click();
   document.getElementById("boton5").click();
   document.getElementById("boton6").click();
 
   sumarPrecios1();
-  //agregaCuotas()
   sumarPrecios2();
 
   bloquearSelectCar("autos");
@@ -708,8 +727,6 @@ document.getElementById("exportarPDF").addEventListener("click", () => {
   bloquearSelect("cantidad6");
   ocultarSelectYMostrarValorUn();
 
-
-  
   const { jsPDF } = window.jspdf;
 
   html2canvas(document.getElementById("contenido"), { scale: 2 }).then((canvas) => {
@@ -721,10 +738,9 @@ document.getElementById("exportarPDF").addEventListener("click", () => {
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save("pagina-web.pdf"); // Nombre del archivo
+      pdf.save(nombreArchivo + ".pdf"); // Nombre del archivo con la fecha
   });
 });
-
 
 
 
@@ -1191,7 +1207,7 @@ let campo8 = document.getElementById("inputBuscar7");
    location.reload();
    });
  }*/
-
+   let valor_select = "";
 ////ACA HICE OBJETOS CON CADA SELECCION DE AUTO CON SUS CODIGOS CORRESPONDIENTES Y SE AGREGUEN AL INPUT PARA LUEGO CLICKEAR TOTAL//////////////////////
 
 document.getElementById("autos").addEventListener("change", function () {
@@ -1201,7 +1217,7 @@ document.getElementById("autos").addEventListener("change", function () {
     selectElement1.value = valorDeseadoStr;
   }
 
-  let valor_select = this.value;
+   valor_select = this.value;
   const campos = [campo1, campo2, campo4, campo5, campo6, campo7];
 
   for (let campo of campos) {
