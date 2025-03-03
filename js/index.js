@@ -670,6 +670,64 @@ input5.addEventListener("change", () => {
   );
 });
 
+
+document.getElementById("exportarPDF").addEventListener("click", () => {
+  document.getElementById("exportarPDF").style.display = "none";
+
+  agregarFechayhora();
+
+
+
+
+  checkInput("inputBuscar", "fila1");
+  checkInput("inputBuscar1", "fila2");
+
+  checkInput("inputBuscar3", "fila4");
+  checkInput("inputBuscar4", "fila5");
+  checkInput("inputBuscar5", "fila6");
+  checkInput("inputBuscar6", "fila7");
+
+  document.getElementById("boton0").click();
+  document.getElementById("boton1").click();
+
+  document.getElementById("boton3").click();
+  document.getElementById("boton4").click();
+  document.getElementById("boton5").click();
+  document.getElementById("boton6").click();
+
+  sumarPrecios1();
+  //agregaCuotas()
+  sumarPrecios2();
+
+  bloquearSelectCar("autos");
+  bloquearSelect("cantidad1");
+  bloquearSelect("cantidad2");
+  bloquearSelect("cantidad3");
+  bloquearSelect("cantidad4");
+  bloquearSelect("cantidad5");
+  bloquearSelect("cantidad6");
+  ocultarSelectYMostrarValorUn();
+
+
+  
+  const { jsPDF } = window.jspdf;
+
+  html2canvas(document.getElementById("contenido"), { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      // Ajustar tamaño de la imagen
+      const imgWidth = 210;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+      pdf.save("pagina-web.pdf"); // Nombre del archivo
+  });
+});
+
+
+
+
 let boton7 = document.getElementById("boton7");
 boton7.addEventListener("click", () => {
   sumatodo();
@@ -829,7 +887,47 @@ function checkInput(inputId, filaId) {
   }
 }
 
+
+
+function imprimirPagina() {
+  agregarFechayhora();
+
+
+
+
+  checkInput("inputBuscar", "fila1");
+  checkInput("inputBuscar1", "fila2");
+
+  checkInput("inputBuscar3", "fila4");
+  checkInput("inputBuscar4", "fila5");
+  checkInput("inputBuscar5", "fila6");
+  checkInput("inputBuscar6", "fila7");
+
+  document.getElementById("boton0").click();
+  document.getElementById("boton1").click();
+
+  document.getElementById("boton3").click();
+  document.getElementById("boton4").click();
+  document.getElementById("boton5").click();
+  document.getElementById("boton6").click();
+
+  sumarPrecios1();
+  //agregaCuotas()
+  sumarPrecios2();
+
+  bloquearSelectCar("autos");
+  bloquearSelect("cantidad1");
+  bloquearSelect("cantidad2");
+  bloquearSelect("cantidad3");
+  bloquearSelect("cantidad4");
+  bloquearSelect("cantidad5");
+  bloquearSelect("cantidad6");
+  ocultarSelectYMostrarValorUn();
+}
+
+
 function sumatodo() {
+  document.getElementById("exportarPDF").style.display = "none";
   agregarFechayhora();
 
 

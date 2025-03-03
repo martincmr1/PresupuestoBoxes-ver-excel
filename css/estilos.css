@@ -295,7 +295,29 @@ width: 100px;
   button:active {
     transform: scale(0.95); /* Reduce el tamaño al hacer clic */
   }
-  
+  #exportarPDF {
+    background-color: #d32f2f; /* Rojo PDF */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre icono y texto */
+}
+
+#exportarPDF:hover {
+    background-color: #b71c1c;
+}
+
+/* Ajustar el icono */
+#exportarPDF i {
+    font-size: 20px;
+}
+
   
 
   @media print {
