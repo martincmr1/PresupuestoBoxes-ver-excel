@@ -680,14 +680,16 @@ document.getElementById("exportarPDF").addEventListener("click", () => {
   let modeloSeleccionado = autosSelect.value ? autosSelect.options[autosSelect.selectedIndex].text : "";
   let patente = inputPatente.value.trim() !== "" ? inputPatente.value.trim() : "";
 
-  // Obtener la fecha actual en formato DDMMYYYY
+  // Obtener la fecha y hora actual en formato DDMMYYYY-HHMM
   let fecha = new Date();
   let dia = fecha.getDate().toString().padStart(2, "0");  // Agrega un 0 si es menor a 10
   let mes = (fecha.getMonth() + 1).toString().padStart(2, "0");  // Mes comienza desde 0, sumamos 1
   let anio = fecha.getFullYear();
-  let fechaActual = `${dia}${mes}${anio}`;  // Formato: 03032025
+  let hora = fecha.getHours().toString().padStart(2, "0"); // Hora con 2 dígitos
+  let minutos = fecha.getMinutes().toString().padStart(2, "0"); // Minutos con 2 dígitos
+  let fechaActual = `${dia}${mes}${anio}-${hora}${minutos}`;  // Formato: 03032025-1530
 
-  // Concatenar valores con la fecha
+  // Concatenar valores con la fecha y hora
   let nombreArchivo = `Presupuesto-YPF-BOXES-ACA-MORON-${fechaActual}`;
   if (modeloSeleccionado && patente) {
       nombreArchivo += `-${modeloSeleccionado} ${patente}`;
@@ -738,9 +740,10 @@ document.getElementById("exportarPDF").addEventListener("click", () => {
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save(nombreArchivo + ".pdf"); // Nombre del archivo con la fecha
+      pdf.save(nombreArchivo + ".pdf"); // Nombre del archivo con fecha y hora
   });
 });
+
 
 
 
