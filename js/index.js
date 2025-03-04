@@ -675,31 +675,22 @@ document.getElementById("exportarPDF").addEventListener("click", () => {
   document.getElementById("exportarPDF").style.display = "none";
 
   let autosSelect = document.getElementById("autos");
-  let inputPatente = document.getElementById("inputPatente"); // Captura el input manual
+  let inputPatente = document.getElementById("inputPatente"); 
 
   let modeloSeleccionado = autosSelect.value ? autosSelect.options[autosSelect.selectedIndex].text : "";
   let patente = inputPatente.value.trim() !== "" ? inputPatente.value.trim() : "";
 
-  // Obtener la fecha y hora actual en formato DDMMYYYY-HHMM
   let fecha = new Date();
-  let dia = fecha.getDate().toString().padStart(2, "0");  // Agrega un 0 si es menor a 10
-  let mes = (fecha.getMonth() + 1).toString().padStart(2, "0");  // Mes comienza desde 0, sumamos 1
+  let dia = fecha.getDate().toString().padStart(2, "0");  
+  let mes = (fecha.getMonth() + 1).toString().padStart(2, "0");  
   let anio = fecha.getFullYear();
-  let hora = fecha.getHours().toString().padStart(2, "0"); // Hora con 2 dígitos
-  let minutos = fecha.getMinutes().toString().padStart(2, "0"); // Minutos con 2 dígitos
-  let fechaActual = `${dia}${mes}${anio}-${hora}${minutos}`;  // Formato: 03032025-1530
+  let hora = fecha.getHours().toString().padStart(2, "0"); 
+  let minutos = fecha.getMinutes().toString().padStart(2, "0"); 
+  let fechaActual = `${dia}${mes}${anio}-${hora}${minutos}`;  
 
-  // Concatenar valores con la fecha y hora
   let nombreArchivo = `Presupuesto-YPF-BOXES-ACA-MORON-${fechaActual}`;
-  if (modeloSeleccionado && patente) {
-      nombreArchivo += `-${modeloSeleccionado} ${patente}`;
-  } else if (modeloSeleccionado) {
-      nombreArchivo += `-${modeloSeleccionado}`;
-  } else if (patente) {
-      nombreArchivo += `-${patente}`;
-  } else {
-      nombreArchivo += "-Modelo-No-Especificado";
-  }
+  if (modeloSeleccionado) nombreArchivo += `-${modeloSeleccionado}`;
+  if (patente) nombreArchivo += `-${patente}`;
 
   agregarFechayhora();
 
@@ -731,18 +722,27 @@ document.getElementById("exportarPDF").addEventListener("click", () => {
 
   const { jsPDF } = window.jspdf;
 
-  html2canvas(document.getElementById("contenido"), { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
+  setTimeout(() => {
+    let contenido = document.getElementById("contenido");
+
+    if (!contenido) {
+      console.error("Elemento 'contenido' no encontrado");
+      return;
+    }
+
+    html2canvas(contenido, { scale: 1.5, useCORS: true }).then((canvas) => {
+      let imgData = canvas.toDataURL("image/jpeg", 0.7); // JPEG con compresión 70%
       const pdf = new jsPDF("p", "mm", "a4");
 
-      // Ajustar tamaño de la imagen
       const imgWidth = 210;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      pdf.save(nombreArchivo + ".pdf"); // Nombre del archivo con fecha y hora
-  });
+      pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight, "", "FAST"); // Imagen optimizada
+      pdf.save(nombreArchivo + ".pdf");
+    });
+  }, 1000);
 });
+
 
 
 
